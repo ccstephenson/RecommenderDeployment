@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "foAPc/89KpcEGt7Gaa/QIvIy8/cmRy60FyX+dbZUfU2dnA/Ix91my3shpEfV8W71dxJai+Vn9KnNoIZ4E9Rc4Q==",
+  "success": true,
+  "projectFilePath": "/Users/calebstephenson/Desktop/RecommenderDeployment/backend/RecommenderDeployment.API/RecommenderDeployment.API.csproj",
+  "expectedPackageFiles": [
+    "/Users/calebstephenson/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/calebstephenson/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
+    "/Users/calebstephenson/.nuget/packages/swashbuckle.aspnetcore/6.6.2/swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
+    "/Users/calebstephenson/.nuget/packages/swashbuckle.aspnetcore.swagger/6.6.2/swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
+    "/Users/calebstephenson/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.6.2/swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
+    "/Users/calebstephenson/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.6.2/swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512"
+  ],
+  "logs": []
+}
