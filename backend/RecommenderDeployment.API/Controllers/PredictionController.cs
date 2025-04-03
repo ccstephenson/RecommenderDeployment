@@ -71,5 +71,43 @@ namespace RecommenderDeployment.API.Controllers
                 return StatusCode(500, $"An error occurred while loading the CSV file: {ex.Message}");
             }
         }
+
+        [HttpGet("recommendations/{itemId}")]
+        public IActionResult GetRecommendationsForItem(long itemId)
+        {
+            try
+            {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "Data", "collaborative_recommendations.csv");
+
+                if (!System.IO.File.Exists(path))
+                {
+                    return NotFound("CSV file not found.");
+                }
+
+                var recommendations = _csvService.LoadRecommendations(path);
+
+                var match = recommendations.FirstOrDefault(r => r.Id == itemId);
+
+                if (match == null)
+                {
+                    return NotFound($"No recommendation found for ID: {itemId}");
+                }
+
+                return Ok(new
+                {
+                    id = match.Id,
+                    title = match.Title,
+                    recommendation1 = match.Recommendation1,
+                    recommendation2 = match.Recommendation2,
+                    recommendation3 = match.Recommendation3,
+                    recommendation4 = match.Recommendation4,
+                    recommendation5 = match.Recommendation5
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving the recommendation: {ex.Message}");
+            }
+        }
     }
 }
