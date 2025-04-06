@@ -4,9 +4,7 @@ using RecommenderDeployment.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -14,6 +12,17 @@ builder.Services.AddSingleton<CsvDataService>();
 builder.Services.AddSingleton<AzureMLService>();
 builder.Services.Configure<AzureMLConfig>(
     builder.Configuration.GetSection("AzureML"));
+
+// ✅ CORS setup
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -25,6 +34,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// ✅ Use CORS BEFORE mapping controllers
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 

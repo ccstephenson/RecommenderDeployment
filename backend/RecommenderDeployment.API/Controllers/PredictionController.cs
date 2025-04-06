@@ -73,7 +73,7 @@ namespace RecommenderDeployment.API.Controllers
         }
 
         [HttpGet("recommendations/{itemId}")]
-        public IActionResult GetRecommendationsForItem(long itemId)
+        public IActionResult GetRecommendationsForItem(double itemId)
         {
             try
             {
@@ -85,6 +85,7 @@ namespace RecommenderDeployment.API.Controllers
                 }
 
                 var recommendations = _csvService.LoadRecommendations(path);
+                Console.WriteLine("Looking for ID: " + itemId); // 🔍 Debug
 
                 var match = recommendations.FirstOrDefault(r => r.Id == itemId);
 
