@@ -24,7 +24,7 @@ const HomePage = () => {
 
   // Fetch 5 preview items
   useEffect(() => {
-    fetch('http://localhost:5141/api/Prediction/csv-preview')
+    fetch('http://localhost:5000/api/Prediction/csv-preview')
       .then((res) => res.json())
       .then((data) => {
         const options: ItemOption[] = data.sample.map((item: any) => ({
@@ -42,7 +42,7 @@ const HomePage = () => {
     try {
       console.log('Sending itemId:', selectedItemId);
       const res = await fetch(
-        `http://localhost:5141/api/Prediction/recommendations/${selectedItemId}`
+        `http://localhost:5000/api/Prediction/recommendations/${selectedItemId}`
       );
 
       if (!res.ok) {
