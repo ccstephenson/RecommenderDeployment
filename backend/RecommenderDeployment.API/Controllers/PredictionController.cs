@@ -110,5 +110,71 @@ namespace RecommenderDeployment.API.Controllers
                 return StatusCode(500, $"An error occurred while retrieving the recommendation: {ex.Message}");
             }
         }
+
+        [HttpGet("content-preview")]
+        public IActionResult GetContentCsvPreview()
+        {
+            try
+            {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "Data", "content_recommendations.csv");
+
+                if (!System.IO.File.Exists(path))
+                {
+                    return NotFound("CSV file not found.");
+                }
+
+                var recommendations = _csvService.LoadRecommendations(path);
+
+                return Ok(new
+                {
+                    message = "Content CSV loaded successfully",
+                    count = recommendations.Count,
+                    sample = recommendations.Take(5)
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while loading the content CSV file: {ex.Message}");
+            }
+        }
+
+        [HttpGet("content-recommendations/{itemId}")]
+        public IActionResult GetContentRecommendationsForItem(double itemId)
+        {
+            try
+            {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "Data", "content_recommendations.csv");
+
+                if (!System.IO.File.Exists(path))
+                {
+                    return NotFound("CSV file not found.");
+                }
+
+                var recommendations = _csvService.LoadRecommendations(path);
+                Console.WriteLine("Looking for Content ID: " + itemId); // Debug
+
+                var match = recommendations.FirstOrDefault(r => r.Id == itemId);
+
+                if (match == null)
+                {
+                    return NotFound($"No content-based recommendation found for ID: {itemId}");
+                }
+
+                return Ok(new
+                {
+                    id = match.Id,
+                    title = match.Title,
+                    recommendation1 = match.Recommendation1,
+                    recommendation2 = match.Recommendation2,
+                    recommendation3 = match.Recommendation3,
+                    recommendation4 = match.Recommendation4,
+                    recommendation5 = match.Recommendation5
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving the content-based recommendation: {ex.Message}");
+            }
+        }
     }
 }
